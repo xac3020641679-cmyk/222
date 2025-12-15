@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome-Login</title>
+<style>
+    body{
+        background: url('imgs/login_bg.jpg') no-repeat;
+        background-size: 100% 130%
+    }
+    #login_box {
+        width: 25%;
+        height: 450px;
+        background-color: #00000060;
+        margin: auto;
+        margin-top: 10%;
+        text-align: center;
+        border-radius: 10px;
+        padding: 50px 50px;
+    }
+
+    h1 {
+        color: #ffffff90;
+        margin-top: 6%;
+    }
+
+    #input-box {
+        margin-top: 5%;
+    }
+
+    span {
+        color: #fff;
+    }
+
+    input {
+        border: 0;
+        width: 60%;
+        font-size: 15px;
+        color: #fff;
+        background: transparent;
+        border-bottom: 2px solid #fff;
+        padding: 5px 10px;
+        outline: none;
+        margin-top: 10px;
+    }
+
+    button {
+        margin-top: 50px;
+        width: 60%;
+        height: 30px;
+        border-radius: 10px;
+        border: 0;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        font-size: 15px;
+        background-image: linear-gradient(to right, #30cfd0, #330867);
+    }
+
+    #register_div {
+        margin-top: 5px;
+        width: 60%;
+        height: 30px;
+        border-radius: 10px;
+        border: 0;
+        color: #fff;
+        text-align: center;
+        align-content: center;
+        line-height: 30px;
+        font-size: 15px;
+        background-image: linear-gradient(to left, #30cfd0, #c12e2a);
+    }
+    #sign_up {
+        margin-top: 45%;
+        margin-left: 60%;
+    }
+    a {
+        color: #b94648;
+    }
+</style>
+</head>
+<body>
+<form  id="LoginForm" action="loginServlet" method="post" >
+<div id="login_box">
+    <h1>五邑网络餐厅点餐系统登录</h1>
+    <div id="input_box">
+        账号:<input id="username" type="text" name="username" placeholder="请输入账号">
+    </div>
+    <div class="input_box">
+        密码:<input id="password" type="password" name="password"  placeholder="请输入密码">
+    </div>
+    <span class="msg" id="msg" style="color: red" ></span>
+
+    <button href="javascript:login();">登录</button>
+     <button id="register_div"><a href="register.jsp" style="color: white">注册</a><br></button>
+
+    <div>
+        <span style="align-content: center;margin-top: 400px;">
+            <h3>一粥一饭，当思来之不易，</h3>
+            <h3>半丝半缕，恒念物力维艰</h3>
+            <h3>爱惜粮食就是爱惜生命，爱惜粮食就是热爱生活。</h3>
+        </span>
+    </div>
+</div>
+
+</form>
+</body>
+<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    function login() {
+        console.log("我能过来")
+        var uname = $("#username").val();
+        var upwd = $("#password").val();
+
+        if (isEmpty(uname)){
+            $("#msg").html("请输入用户姓名！");
+            return;
+        }
+        if (isEmpty(upwd)){
+            $("#msg").html("请输入用户密码！");
+            return;
+        }
+        $("#LoginForm").submit();
+    }
+
+    //专用方法：判断为空
+    function isEmpty(str) {
+        if (str == null || str.trim() == ""){
+            return true;
+        }
+        return false;
+    }
+
+    // 函数中的参数分别为 cookie 的名称、值以及过期天数
+    function setCookie(c_name,value,expiredays){
+        var exdate=new Date();
+        exdate.setDate(exdate.getDate()+expiredays);
+        document.cookie=c_name+ "=" +escape(value)+
+            ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+    }
+
+    // 如果要设置过期时间以秒为单位
+    function setCookie(c_name,value,expireseconds){
+        var exdate=new Date();
+        exdate.setTime(exdate.getTime()+expireseconds * 1000);
+        document.cookie=c_name+ "=" +escape(value)+
+            ((expireseconds==null) ? "" : ";expires="+exdate.toGMTString())
+    }
+    // 函数中的参数为，要判断的cookie名称
+    function checkCookie(c_name){
+        username=getCookie(c_name);
+        if (username!=null && username!=""){
+            // 如果cookie值存在，执行下面的操作。
+            alert('Welcome again '+username+'!');
+        }else{
+            username=prompt('Please enter your name:',"");
+            if (username!=null && username!=""){
+                //如果cookie不存在，执行下面的操作。
+                setCookie('username',username,365)
+            }
+        }
+    }
+
+</script>
+</html>
